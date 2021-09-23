@@ -1,10 +1,10 @@
 class Root < Formula
   desc "Object oriented framework for large scale data analysis"
   homepage "https://root.cern.ch/"
-  url "https://root.cern.ch/download/root_v6.24.02.source.tar.gz"
-  sha256 "0507e1095e279ccc7240f651d25966024325179fa85a1259b694b56723ad7c1c"
+  url "https://root.cern.ch/download/root_v6.24.04.source.tar.gz"
+  sha256 "4a416f3d7aa25dba46d05b641505eb074c5f07b3ec1d21911451046adaea3ee7"
   license "LGPL-2.1-or-later"
-  head "https://github.com/root-project/root.git"
+  head "https://github.com/root-project/root.git", branch: "master"
 
   livecheck do
     url "https://root.cern.ch/download/"
@@ -12,10 +12,11 @@ class Root < Formula
   end
 
   bottle do
-    sha256 arm64_big_sur: "096c9f05cf6eac05418899ad73c95123c060696b329bde289d7f3025113821dc"
-    sha256 big_sur:       "47974dac56b08629424629f78ea84ce3cf7ba51c0550eefeff0d25b93406b4ce"
-    sha256 catalina:      "41ead743647ee2a6d6818a00f112398f163411602d5f8d1f0f78787b0af1e82a"
-    sha256 mojave:        "d12b91fc57d6097e93db3a1885714517d3da77121e47aeb2a4cd8737c3d7876b"
+    sha256 arm64_big_sur: "b047f553b56962b417f1a8deeb43c9a814de15e776aa52287e074e83fd9ea09d"
+    sha256 big_sur:       "1fa26f261a9a86327106fbb5f2dd48687efa39979c207696f85eb6d6a7814fef"
+    sha256 catalina:      "2c925c6cfea7e222a1aaec1c0bec0e74d6a6f56ca24afd0f36cf0b3ef97b01f6"
+    sha256 mojave:        "75c2a278276d76be14f0ed92a78e104a39cdcf0d7e506dda0d172b83747d7ed7"
+    sha256 x86_64_linux:  "91c253a9e56202f9469ae864ffaf053e5096cc6345ca09972a04757ab2f349f8"
   end
 
   depends_on "cmake" => :build
@@ -40,11 +41,18 @@ class Root < Formula
 
   uses_from_macos "libxml2"
 
+  on_linux do
+    depends_on "libxft"
+    depends_on "libxpm"
+  end
+
   conflicts_with "glew", because: "root ships its own copy of glew"
 
   skip_clean "bin"
 
   def install
+    ENV.append "LDFLAGS", "-Wl,-rpath,#{lib}/root" if OS.linux?
+
     # Freetype/afterimage/gl2ps/lz4 are vendored in the tarball, so are fine.
     # However, this is still permitting the build process to make remote
     # connections. As a hack, since upstream support it, we inreplace
@@ -91,7 +99,6 @@ class Root < Formula
 
     mkdir "builddir" do
       system "cmake", "..", *args
-
       system "ninja", "install"
 
       chmod 0755, Dir[bin/"*.*sh"]
@@ -142,12 +149,10 @@ class Root < Formula
         return 0;
       }
     EOS
-    (testpath/"test_compile.bash").write <<~EOS
-      $(root-config --cxx) $(root-config --cflags) $(root-config --libs) $(root-config --ldflags) test.cpp
-      ./a.out
-    EOS
-    assert_equal "Hello, world!\n",
-                 shell_output("/bin/bash test_compile.bash")
+    flags = %w[cflags libs ldflags].map { |f| "$(root-config --#{f})" }
+    flags << "-Wl,-rpath,#{lib}/root" if OS.linux?
+    shell_output("$(root-config --cxx) test.cpp #{flags.join(" ")}")
+    assert_equal "Hello, world!\n", shell_output("./a.out")
 
     # Test Python module
     system Formula["python@3.9"].opt_bin/"python3", "-c", "import ROOT; ROOT.gSystem.LoadAllLibraries()"

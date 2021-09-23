@@ -1,11 +1,11 @@
 class Pyenv < Formula
   desc "Python version management"
   homepage "https://github.com/pyenv/pyenv"
-  url "https://github.com/pyenv/pyenv/archive/v2.0.4.tar.gz"
-  sha256 "930b51083ac3a9096da742a4fb3621ce249a6dd0556aa71fe39ca2afaa748346"
+  url "https://github.com/pyenv/pyenv/archive/v2.0.7.tar.gz"
+  sha256 "36dbf6fa9aaf97da2b0d4c829e4e4acd74e8f9ed4439c31c9e597166f838d240"
   license "MIT"
   version_scheme 1
-  head "https://github.com/pyenv/pyenv.git"
+  head "https://github.com/pyenv/pyenv.git", branch: "master"
 
   livecheck do
     url :stable
@@ -13,11 +13,11 @@ class Pyenv < Formula
   end
 
   bottle do
-    sha256 cellar: :any,                 arm64_big_sur: "0a9028bca648d5bc788f1eba37cb69de8c9bcbc24a918230ad50b86a5db3614b"
-    sha256 cellar: :any,                 big_sur:       "043817ecfe1f1354d8a64b853600dc7216649d7873a847499feafd16a1292d36"
-    sha256 cellar: :any,                 catalina:      "93485a18eab042a34d384f70bbf52f5979cf617162c6e6ab9cfd9ce4ecc62bbc"
-    sha256 cellar: :any,                 mojave:        "35214e7c5d1f90ff0a1a4c1fe2da47c8729f58c63cf74c20cb8abd9530117f58"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:  "a4663c72b3a8cb61728166879ef6851eeb5ed8b65a752552d277fef58e92d166"
+    sha256 cellar: :any,                 arm64_big_sur: "0a10714b40198d0bea81b7dd282bc3565b870cfbcf02309104c0408b570618c2"
+    sha256 cellar: :any,                 big_sur:       "e8f8882207ec4d9d3a6d904ea81afef33e59c9c49dfeed34692e208b857564af"
+    sha256 cellar: :any,                 catalina:      "b6a91e6b68d1951141bafd70d1612cdb369b18874a17cc058671cddb763706f2"
+    sha256 cellar: :any,                 mojave:        "cde37127f8c2179ff34ff2a888e7b95ad299e1139297c958cbc4bfb2b4d9827f"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "ffe64a4566542b8bdab0c8ad232004409db1fe58b2930dbc26d3de66923a3fbd"
   end
 
   depends_on "autoconf"
@@ -47,6 +47,8 @@ class Pyenv < Formula
     %w[pyenv-install pyenv-uninstall python-build].each do |cmd|
       bin.install_symlink "#{prefix}/plugins/python-build/bin/#{cmd}"
     end
+
+    share.install prefix/"man"
 
     # Do not manually install shell completions. See:
     #   - https://github.com/pyenv/pyenv/issues/1056#issuecomment-356818337

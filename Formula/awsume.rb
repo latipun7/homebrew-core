@@ -13,10 +13,12 @@ class Awsume < Formula
     sha256 cellar: :any_skip_relocation, big_sur:       "806d2b9b42e2c6b2ada3ea54078acd63f9d57993d0e035ef8f1a2146b4b3acb3"
     sha256 cellar: :any_skip_relocation, catalina:      "8a625ab78b6ef09d29fe249e1455c22606842a1334483d34026203d3649098ab"
     sha256 cellar: :any_skip_relocation, mojave:        "cad6a135f48beed8f047779cd8e53822910346ff88ab96cc664b348eebe84c3f"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "6437dc79d71a6e7127217c2b233285b2ab0a3fd84ffa0a99ab7edb0d5c1ca9b8"
   end
 
   depends_on "openssl@1.1"
   depends_on "python@3.9"
+
   uses_from_macos "sqlite"
 
   resource "boto3" do
@@ -79,11 +81,12 @@ class Awsume < Formula
   end
 
   test do
-    assert_match version.to_s, shell_output(". #{bin}/awsume -v 2>&1")
+    assert_match version.to_s, shell_output("bash -c '. #{bin}/awsume -v 2>&1'")
 
     file_path = File.expand_path("~/.awsume/config.yaml")
     shell_output(File.exist?(file_path))
 
-    assert_match "PROFILE  TYPE  SOURCE  MFA?  REGION  ACCOUNT", shell_output(". #{bin}/awsume --list-profiles 2>&1")
+    assert_match "PROFILE  TYPE  SOURCE  MFA?  REGION  ACCOUNT",
+                 shell_output("bash -c '. #{bin}/awsume --list-profiles 2>&1'")
   end
 end

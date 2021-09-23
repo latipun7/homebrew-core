@@ -4,7 +4,7 @@ class Stlink < Formula
   url "https://github.com/texane/stlink/archive/v1.7.0.tar.gz"
   sha256 "57ec1214905aedf59bee7f70ddff02316f64fa9ba5a9b6a3a64952edc5b65855"
   license "BSD-3-Clause"
-  head "https://github.com/texane/stlink.git"
+  head "https://github.com/texane/stlink.git", branch: "develop"
 
   bottle do
     sha256 cellar: :any,                 arm64_big_sur: "79683924dac821a1744cf32a96c3296eecd1668b5f2f64dbdcf570f32480459f"
@@ -20,7 +20,7 @@ class Stlink < Formula
 
   def install
     args = std_cmake_args
-    on_linux do
+    if OS.linux?
       args << "-DSTLINK_MODPROBED_DIR=#{lib}/modprobe.d"
       args << "-DSTLINK_UDEV_RULES_DIR=#{lib}/udev/rules.d"
     end

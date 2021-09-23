@@ -4,7 +4,7 @@ class Vis < Formula
   url "https://github.com/martanne/vis/archive/v0.7.tar.gz"
   sha256 "359ebb12a986b2f4e2a945567ad7587eb7d354301a5050ce10d51544570635eb"
   license "ISC"
-  head "https://github.com/martanne/vis.git"
+  head "https://github.com/martanne/vis.git", branch: "master"
 
   bottle do
     sha256 arm64_big_sur: "38e336f42ba65ee1cc621b885d364b0568fe8522ddf0ad370425b4409bc41f81"
@@ -45,7 +45,7 @@ class Vis < Formula
     luaenv = { LUA_PATH: ENV["LUA_PATH"], LUA_CPATH: ENV["LUA_CPATH"] }
     bin.env_script_all_files(libexec/"bin", luaenv)
 
-    on_macos do
+    if OS.mac?
       # Rename vis & the matching manpage to avoid clashing with the system.
       mv bin/"vis", bin/"vise"
       mv man1/"vis.1", man1/"vise.1"

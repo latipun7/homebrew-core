@@ -4,7 +4,7 @@ class Yaws < Formula
   url "https://github.com/erlyaws/yaws/archive/yaws-2.0.9.tar.gz"
   sha256 "a2bbfe10c780ef2c3b238eaf76d902f4921c63b49d135bb9878b163ef1870a6d"
   license "BSD-3-Clause"
-  head "https://github.com/erlyaws/yaws.git"
+  head "https://github.com/erlyaws/yaws.git", branch: "master"
 
   livecheck do
     url :stable
@@ -39,7 +39,7 @@ class Yaws < Formula
     extra_args = %W[
       --with-extrainclude=#{MacOS.sdk_path}/usr/include/security
     ]
-    on_linux do
+    if OS.linux?
       extra_args = %W[
         --with-extrainclude=#{Formula["linux-pam"].opt_include}/security
       ]
@@ -58,10 +58,7 @@ class Yaws < Formula
     (lib/"yaws/examples/include").mkpath
 
     # Remove Homebrew shims references on Linux
-    on_linux do
-      inreplace Dir["#{prefix}/var/yaws/www/*/Makefile"], HOMEBREW_LIBRARY/"Homebrew/shims/linux/super/",
-        "/usr/bin/"
-    end
+    inreplace Dir["#{prefix}/var/yaws/www/*/Makefile"], Superenv.shims_path, "/usr/bin" if OS.linux?
   end
 
   def post_install

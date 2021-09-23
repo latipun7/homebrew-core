@@ -1,8 +1,8 @@
 class Curl < Formula
   desc "Get a file from an HTTP, HTTPS or FTP server"
   homepage "https://curl.se"
-  url "https://curl.se/download/curl-7.78.0.tar.bz2"
-  sha256 "98530b317dc95ccb324bbe4f834f07bb642fbc393b794ddf3434f246a71ea44a"
+  url "https://curl.se/download/curl-7.79.1.tar.bz2"
+  sha256 "de62c4ab9a9316393962e8b94777a570bb9f71feb580fb4475e412f2f9387851"
   license "curl"
 
   livecheck do
@@ -11,11 +11,11 @@ class Curl < Formula
   end
 
   bottle do
-    sha256 cellar: :any,                 arm64_big_sur: "5b3ffcee1ea579b665fedfc19841ace3f068f0b065d9362bb093cf6fb30a743e"
-    sha256 cellar: :any,                 big_sur:       "875acbe04343e88db8fae96aab1d178b5e71cb39f737dd60472c9f18b7b60129"
-    sha256 cellar: :any,                 catalina:      "d64577e04b6f1aa1279034d64a5634c8619b1c0f0da038539284dc71c119b0d6"
-    sha256 cellar: :any,                 mojave:        "ff5c7e7cd9ac4b61a482d733ab9081f540ca38d3a875f00106cf3a0f8c6db3bd"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:  "ce92e4bb455dd60dbcc197602fcd2935e1f0e9083ea224ab859917d72e828f20"
+    sha256 cellar: :any,                 arm64_big_sur: "848ef1fcbd49c13bf4dc0890f6666fef3cedc3eb545be8fbbb4efad168137ee0"
+    sha256 cellar: :any,                 big_sur:       "0ecffc9a6220064210b9506cdc34cdf4f118fbed2f51fd6b7fe608c2e42649aa"
+    sha256 cellar: :any,                 catalina:      "4ec3be96813a0aabb4489a2a47363490e022d6ed0693fdb917dae666c081582b"
+    sha256 cellar: :any,                 mojave:        "484934e11387cc3c72964577f609f701783c7d55add3fa0df03245e3f5e8c590"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "88caede39c8b0df2aab1e02ab7c8dd8d89859f9321c287d025850b4edc1d3bb5"
   end
 
   head do
@@ -61,12 +61,10 @@ class Curl < Formula
       --without-libpsl
     ]
 
-    on_macos do
-      args << "--with-gssapi"
-    end
-
-    on_linux do
-      args << "--with-gssapi=#{Formula["krb5"].opt_prefix}"
+    args << if OS.mac?
+      "--with-gssapi"
+    else
+      "--with-gssapi=#{Formula["krb5"].opt_prefix}"
     end
 
     system "./configure", *args

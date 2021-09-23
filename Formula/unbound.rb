@@ -4,7 +4,7 @@ class Unbound < Formula
   url "https://nlnetlabs.nl/downloads/unbound/unbound-1.13.2.tar.gz"
   sha256 "0a13b547f3b92a026b5ebd0423f54c991e5718037fd9f72445817f6a040e1a83"
   license "BSD-3-Clause"
-  head "https://github.com/NLnetLabs/unbound.git"
+  head "https://github.com/NLnetLabs/unbound.git", branch: "master"
 
   # We check the GitHub repo tags instead of
   # https://nlnetlabs.nl/downloads/unbound/ since the first-party site has a
@@ -40,12 +40,8 @@ class Unbound < Formula
       --with-ssl=#{Formula["openssl@1.1"].opt_prefix}
     ]
 
-    on_macos do
-      args << "--with-libexpat=#{MacOS.sdk_path}/usr" if MacOS.sdk_path_if_needed
-    end
-    on_linux do
-      args << "--with-libexpat=#{Formula["expat"].opt_prefix}"
-    end
+    args << "--with-libexpat=#{MacOS.sdk_path}/usr" if OS.mac? && MacOS.sdk_path_if_needed
+    args << "--with-libexpat=#{Formula["expat"].opt_prefix}" if OS.linux?
     system "./configure", *args
 
     inreplace "doc/example.conf", 'username: "unbound"', 'username: "@@HOMEBREW-UNBOUND-USER@@"'

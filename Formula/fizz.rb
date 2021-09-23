@@ -1,18 +1,17 @@
 class Fizz < Formula
   desc "C++14 implementation of the TLS-1.3 standard"
   homepage "https://github.com/facebookincubator/fizz"
-  url "https://github.com/facebookincubator/fizz/releases/download/v2021.08.02.00/fizz-v2021.08.02.00.tar.gz"
-  sha256 "429be5bfdca71cdb41b92523508abbc2f8d6b39ad5ebf3585f51f4231ca1544f"
+  url "https://github.com/facebookincubator/fizz/releases/download/v2021.09.13.00/fizz-v2021.09.13.00.tar.gz"
+  sha256 "47630a44f4d66ae0a5a65fe6b215bb02649a70aa1e5f92f747ffefde46834135"
   license "BSD-2-Clause"
-  revision 1
   head "https://github.com/facebookincubator/fizz.git"
 
   bottle do
-    sha256 cellar: :any,                 arm64_big_sur: "31be96d50fd1d1865cbc2225f68acb2402730bb9d34e067561f790e405d23f2c"
-    sha256 cellar: :any,                 big_sur:       "e105a1c5e7e86c508dfb27c0a469de8d941ec80cfc43f9c375f58f34030b82c4"
-    sha256 cellar: :any,                 catalina:      "64025751d49b3592335afb5c2d95d0275aab8011036efe23dd7212065973c8e0"
-    sha256 cellar: :any,                 mojave:        "3474a9a02789f0a4bae032b25fb7af31cfdbb8d4b65c95244701a9b975a739c1"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:  "a5b13420eed88e4f20f8454bf594c0a6a0b5d494d4bec1784fd6934152d3be07"
+    sha256 cellar: :any,                 arm64_big_sur: "0f91cf2db9b57b81bcab88795c4877bc311edea7e56549a42e12fd6c3896f28f"
+    sha256 cellar: :any,                 big_sur:       "9a3c4042141600b6155dc07299b3945a7c57bc7accb52751806b19ff4867cfaa"
+    sha256 cellar: :any,                 catalina:      "bbcb103edb1ade2ef505860d5d9c51a674d40cfc1b66638038461245e2025e95"
+    sha256 cellar: :any,                 mojave:        "bc8c4054ecec468d8a9350303b12486349651049206d884976c797d93b8f7b63"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "369f8366165e6d2b2e6323c8c29b7a5a12e1d0f8a80143fb9c0198dbed18e158"
   end
 
   depends_on "cmake" => :build
@@ -36,8 +35,11 @@ class Fizz < Formula
   fails_with gcc: "5"
 
   def install
+    args = []
+    args << "-DLIBRT_LIBRARY=/usr/lib/x86_64-linux-gnu/librt.so" if OS.linux?
+
     mkdir "fizz/build" do
-      system "cmake", "..", "-DBUILD_TESTS=OFF", "-DBUILD_SHARED_LIBS=ON", *std_cmake_args
+      system "cmake", "..", "-DBUILD_TESTS=OFF", "-DBUILD_SHARED_LIBS=ON", *std_cmake_args, *args
       system "make"
       system "make", "install"
     end

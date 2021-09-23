@@ -3,17 +3,18 @@ class Salt < Formula
 
   desc "Dynamic infrastructure communication bus"
   homepage "https://saltproject.io/"
-  url "https://files.pythonhosted.org/packages/e3/cf/b423b3928f5b2fdc9fd4e330e9f765f15fb6b90d60513d6f4b1649c409eb/salt-3003.2.tar.gz"
-  sha256 "73c86c44b176d8cfdc033bb1e42e4fdc8dd3424833faa2ea0d0938fa173856a9"
+  url "https://files.pythonhosted.org/packages/71/8a/02f957ad4ebfe28002ceef891c8fa0780c4bd75d4882af8c0228dbd2084d/salt-3003.3.tar.gz"
+  sha256 "a6f9c8c8b5e2600ea8620b4a67371de17611beb4f8d97e4bb9b0b308a37ed1e2"
   license "Apache-2.0"
-  head "https://github.com/saltstack/salt.git", branch: "develop"
+  revision 1
+  head "https://github.com/saltstack/salt.git", branch: "master"
 
   bottle do
-    sha256 cellar: :any,                 arm64_big_sur: "0c9560136a756dc33f37da5ab190caee5682d18254c519224b83266ecaed3303"
-    sha256 cellar: :any,                 big_sur:       "e163e8560255b27360a3f6904014783176a0266270766804027b3ea7e888aa7f"
-    sha256 cellar: :any,                 catalina:      "ff6ac3984a6843c64764492bda2e64633534bf95981d8edfef7c7b093a5e798d"
-    sha256 cellar: :any,                 mojave:        "f154f19ff8be5094153b873d0c740918c0197633c033913100b23900b44cc275"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:  "692a725a67ed2d6fca003d5e4b08d3a730f2b595663cba82e80f275812ed5e03"
+    sha256 cellar: :any,                 arm64_big_sur: "61f6a749dc3d2b80d6feb3866ac1658575f8656fbefc1c2f2268b6de635a2bdf"
+    sha256 cellar: :any,                 big_sur:       "1318f10b3d5d42abbbabaa1b5b4be949c59544dc3b54dd8f0c02d25d2976e512"
+    sha256 cellar: :any,                 catalina:      "a287fce3d79c28f0f57c86517a2a129cb14214ae4b1cee48f9b65ab66f6c0e02"
+    sha256 cellar: :any,                 mojave:        "af1e694de878e9cfbb9de63f7d59e8c486d74f4d72d99fa4152188c3c5b9345d"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "b405e19654dc8948ae8e14bde0220d3119fdce7db36d3914f94e4ad26a5e1079"
   end
 
   depends_on "swig" => :build
@@ -21,6 +22,7 @@ class Salt < Formula
   depends_on "libyaml"
   depends_on "openssl@1.1"
   depends_on "python@3.9"
+  depends_on "six"
   depends_on "zeromq"
 
   uses_from_macos "libffi"
@@ -174,6 +176,13 @@ class Salt < Formula
   resource "pygit2" do
     url "https://files.pythonhosted.org/packages/6b/23/a8c5b726a58282fe2cadcc63faaddd4be147c3c8e0bd38b233114adf98fd/pygit2-1.6.1.tar.gz"
     sha256 "c3303776f774d3e0115c1c4f6e1fc35470d15f113a7ae9401a0b90acfa1661ac"
+
+    # libgit2 1.2+ support
+    # https://github.com/libgit2/pygit2/pull/1089
+    patch do
+      url "https://raw.githubusercontent.com/Homebrew/formula-patches/bf370d7782f7686a4a61d8d7d28068e78e28e48c/pygit2/libgit2-1.2.0.patch"
+      sha256 "b5acca41ff7752ea25adb050d7494939fc6d471f4f91d94a06f4afc9902f4117"
+    end
   end
 
   resource "pyOpenSSL" do
@@ -214,11 +223,6 @@ class Salt < Formula
   resource "setproctitle" do
     url "https://files.pythonhosted.org/packages/5a/0d/dc0d2234aacba6cf1a729964383e3452c52096dc695581248b548786f2b3/setproctitle-1.1.10.tar.gz"
     sha256 "6283b7a58477dd8478fbb9e76defb37968ee4ba47b05ec1c053cb39638bd7398"
-  end
-
-  resource "six" do
-    url "https://files.pythonhosted.org/packages/71/39/171f1c67cd00715f190ba0b100d606d440a28c93c7714febeca8b79af85e/six-1.16.0.tar.gz"
-    sha256 "1e61c37477a1626458e36f7b1d82aa5c9b094fa4802892072e49de9c60c4c926"
   end
 
   resource "smmap" do

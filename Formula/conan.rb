@@ -3,23 +3,25 @@ class Conan < Formula
 
   desc "Distributed, open source, package manager for C/C++"
   homepage "https://conan.io"
-  url "https://files.pythonhosted.org/packages/9e/60/e602099325468128a8826cc881aefeee9866f70df3a0e9c88488e80547f5/conan-1.39.0.tar.gz"
-  sha256 "7f1fa90578f84d5801e53cce6aa7c98ed97a99fb2b38b3f12a5d9784722340e0"
+  url "https://files.pythonhosted.org/packages/f6/62/0a978b762933b6c15db8b4f9c0e2d748f24d104084d22a940eef88500dc3/conan-1.40.2.tar.gz"
+  sha256 "2dde4e484261f588167a2789874d26f518f13dab3217062d5cecd89f106cd181"
   license "MIT"
   head "https://github.com/conan-io/conan.git", branch: "develop"
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_big_sur: "b956a0bbec27743cbfd39bf9c2eb8f20f945d978a1d35a5bb1de0441e51839ff"
-    sha256 cellar: :any_skip_relocation, big_sur:       "4c0d348707f0dcb3c29bd98a30c58bca4d231a76eb0bdc38d2b300a3ec429082"
-    sha256 cellar: :any_skip_relocation, catalina:      "28934e26e91520a52a38110c31594a3bdf9a5d433d500b4c14042510366efde2"
-    sha256 cellar: :any_skip_relocation, mojave:        "3a32fd2bc468f09c0d8b431d0d8ab0f8e23023abdde5fd39ff07cdfaf8c8cb98"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:  "aef2c86f0218a29f232205255d96ed39d22a535198673632d316847e9d98e14f"
+    sha256 cellar: :any_skip_relocation, arm64_big_sur: "8168eda597d2d7ea03ee43eb95fe12eb2ea2e51bf7fa14d163dff1e1e23cb0c6"
+    sha256 cellar: :any_skip_relocation, big_sur:       "66ecba897b31c0c04893ca604bb6ee3a9e234aaefe07ab7b6594ae63d5ed1785"
+    sha256 cellar: :any_skip_relocation, catalina:      "3dbf552a711ae0769acadb21a55efb3d091ac3564832332abc50bb3cf88f81d9"
+    sha256 cellar: :any_skip_relocation, mojave:        "489669ea665a0063b5b5ca6be233e73099aa04884451981374dae48baf8e5c2a"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "d6b2da0ab0067d15e8ce1c912a2bcd664eaf0889f95fd63947544ed17105506e"
   end
 
   depends_on "pkg-config" => :build
+  depends_on "cmake" => :test
   depends_on "libffi"
   depends_on "openssl@1.1"
   depends_on "python@3.9"
+  depends_on "six"
 
   resource "bottle" do
     url "https://files.pythonhosted.org/packages/ea/80/3d2dca1562ffa1929017c74635b4cb3645a352588de89e90d0bb53af3317/bottle-0.12.19.tar.gz"
@@ -32,8 +34,8 @@ class Conan < Formula
   end
 
   resource "charset-normalizer" do
-    url "https://files.pythonhosted.org/packages/37/fd/05a04d7e14548474d30d90ad0db5d90ee2ba55cd967511a354cf88b534f1/charset-normalizer-2.0.3.tar.gz"
-    sha256 "c46c3ace2d744cfbdebceaa3c19ae691f53ae621b39fd7570f59d14fb7f2fd12"
+    url "https://files.pythonhosted.org/packages/eb/7f/a6c278746ddbd7094b019b08d1b2187101b1f596f35f81dc27f57d8fcf7c/charset-normalizer-2.0.6.tar.gz"
+    sha256 "5ec46d183433dcbd0ab716f2d7f29d8dee50505b3fdb40c6b985c7c4f5a3591f"
   end
 
   resource "colorama" do
@@ -41,14 +43,9 @@ class Conan < Formula
     sha256 "5941b2b48a20143d2267e95b1c2a7603ce057ee39fd88e7329b0c292aa16869b"
   end
 
-  resource "deprecation" do
-    url "https://files.pythonhosted.org/packages/cd/94/8d9d6303f5ddcbf40959fc2b287479bd9a201ea9483373d9b0882ae7c3ad/deprecation-2.0.7.tar.gz"
-    sha256 "c0392f676a6146f0238db5744d73e786a43510d54033f80994ef2f4c9df192ed"
-  end
-
   resource "distro" do
-    url "https://files.pythonhosted.org/packages/a6/a4/75064c334d8ae433445a20816b788700db1651f21bdb0af33db2aab142fe/distro-1.5.0.tar.gz"
-    sha256 "0e58756ae38fbd8fc3020d54badb8eae17c5b9dcbed388b17bb55b8a5928df92"
+    url "https://files.pythonhosted.org/packages/a5/26/256fa167fe1bf8b97130b4609464be20331af8a3af190fb636a8a7efd7a2/distro-1.6.0.tar.gz"
+    sha256 "83f5e5a09f9c5f68f60173de572930effbcc0287bb84fdc4426cb4168c088424"
   end
 
   resource "fasteners" do
@@ -81,11 +78,6 @@ class Conan < Formula
     sha256 "4016f7c1071b0493f18db69ea02d3763e98a633606d7c7beca811e53b5ac66b7"
   end
 
-  resource "packaging" do
-    url "https://files.pythonhosted.org/packages/df/86/aef78bab3afd461faecf9955a6501c4999933a48394e90f03cd512aad844/packaging-21.0.tar.gz"
-    sha256 "7dc96269f53a4ccec5c0670940a4281106dd0bb343f47b7471f779df49c2fbe7"
-  end
-
   resource "patch-ng" do
     url "https://files.pythonhosted.org/packages/c1/b2/ad3cd464101435fdf642d20e0e5e782b4edaef1affdf2adfc5c75660225b/patch-ng-1.17.4.tar.gz"
     sha256 "627abc5bd723c8b481e96849b9734b10065426224d4d22cd44137004ac0d4ace"
@@ -97,18 +89,13 @@ class Conan < Formula
   end
 
   resource "Pygments" do
-    url "https://files.pythonhosted.org/packages/ba/6e/7a7c13c21d8a4a7f82ccbfe257a045890d4dbf18c023f985f565f97393e3/Pygments-2.9.0.tar.gz"
-    sha256 "a18f47b506a429f6f4b9df81bb02beab9ca21d0a5fee38ed15aef65f0545519f"
+    url "https://files.pythonhosted.org/packages/b7/b3/5cba26637fe43500d4568d0ee7b7362de1fb29c0e158d50b4b69e9a40422/Pygments-2.10.0.tar.gz"
+    sha256 "f398865f7eb6874156579fdf36bc840a03cab64d1cde9e93d68f46a425ec52c6"
   end
 
   resource "PyJWT" do
     url "https://files.pythonhosted.org/packages/2f/38/ff37a24c0243c5f45f5798bd120c0f873eeed073994133c084e1cf13b95c/PyJWT-1.7.1.tar.gz"
     sha256 "8d59a976fb773f3e6a39c85636357c4f0e242707394cadadd9814f5cbaa20e96"
-  end
-
-  resource "pyparsing" do
-    url "https://files.pythonhosted.org/packages/c1/47/dfc9c342c9842bbe0036c7f763d2d6686bcf5eb1808ba3e170afdb282210/pyparsing-2.4.7.tar.gz"
-    sha256 "c203ec8783bf771a155b207279b9bccb8dea02d8f0c9e5f8ead507bc3246ecc1"
   end
 
   resource "python-dateutil" do
@@ -126,19 +113,14 @@ class Conan < Formula
     sha256 "b8aa58f8cf793ffd8782d3d8cb19e66ef36f7aba4353eec859e74678b01b07a7"
   end
 
-  resource "six" do
-    url "https://files.pythonhosted.org/packages/6b/34/415834bfdafca3c5f451532e8a8d9ba89a21c9743a0c59fbd0205c7f9426/six-1.15.0.tar.gz"
-    sha256 "30639c035cdb23534cd4aa2dd52c3bf48f06e5f4a941509c8bafd8ce11080259"
-  end
-
   resource "tqdm" do
-    url "https://files.pythonhosted.org/packages/0d/dd/78f7e080d3bfc87fc19bed54513b430659d38efb2d9ea6e3ad815a665a02/tqdm-4.61.2.tar.gz"
-    sha256 "8bb94db0d4468fea27d004a0f1d1c02da3cdedc00fe491c0de986b76a04d6b0a"
+    url "https://files.pythonhosted.org/packages/e3/c1/b3e42d5b659ca598508e2a9ef315d5eef0a970f874ef9d3b38d4578765bd/tqdm-4.62.3.tar.gz"
+    sha256 "d359de7217506c9851b7869f3708d8ee53ed70a1b8edbba4dbcb47442592920d"
   end
 
   resource "urllib3" do
-    url "https://files.pythonhosted.org/packages/76/d9/bbbafc76b18da706451fa91bc2ebe21c0daf8868ef3c30b869ac7cb7f01d/urllib3-1.25.11.tar.gz"
-    sha256 "8d7eaa5a82a1cac232164990f04874c594c9453ec55eef02eab885aa02fc17a2"
+    url "https://files.pythonhosted.org/packages/4f/5a/597ef5911cb8919efe4d86206aa8b2658616d676a7088f0825ca08bd7cb8/urllib3-1.26.6.tar.gz"
+    sha256 "f57b4c16c62fa2760b7e3d97c35b255512fb6b59a259730f36ba32ce9f8e342f"
   end
 
   def install
@@ -146,7 +128,9 @@ class Conan < Formula
   end
 
   test do
-    system bin/"conan", "install", "zlib/1.2.11@conan/stable", "--build"
+    system bin/"conan", "search", "zlib", "--remote", "conancenter"
+
+    system bin/"conan", "install", "zlib/1.2.11@", "--build"
     assert_predicate testpath/".conan/data/zlib/1.2.11", :exist?
   end
 end

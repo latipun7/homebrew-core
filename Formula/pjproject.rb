@@ -4,7 +4,7 @@ class Pjproject < Formula
   url "https://github.com/pjsip/pjproject/archive/2.10.tar.gz"
   sha256 "936a4c5b98601b52325463a397ddf11ab4106c6a7b04f8dc7cdd377efbb597de"
   license "GPL-2.0-or-later"
-  head "https://github.com/pjsip/pjproject.git"
+  head "https://github.com/pjsip/pjproject.git", branch: "master"
 
   livecheck do
     url :stable
@@ -30,10 +30,9 @@ class Pjproject < Formula
     system "make", "install"
 
     arch = Utils.safe_popen_read("uname", "-m").chomp
-    on_macos do
+    if OS.mac?
       bin.install "pjsip-apps/bin/pjsua-#{arch}-apple-darwin#{OS.kernel_version}" => "pjsua"
-    end
-    on_linux do
+    else
       bin.install "pjsip-apps/bin/pjsua-#{arch}-unknown-linux-gnu" => "pjsua"
     end
   end

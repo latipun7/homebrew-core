@@ -4,8 +4,8 @@ class Samba < Formula
   # option. The shared folder appears in the guest as "\\10.0.2.4\qemu".
   desc "SMB/CIFS file, print, and login server for UNIX"
   homepage "https://www.samba.org/"
-  url "https://download.samba.org/pub/samba/stable/samba-4.14.6.tar.gz"
-  sha256 "86760692dd74a04705c0f6d11b31965a477265a50e79eb15838184476146f4b0"
+  url "https://download.samba.org/pub/samba/stable/samba-4.15.0.tar.gz"
+  sha256 "b1f3470838623156283733e6295f49cd6ae44a7e61bb9c346315d1e668d24640"
   license "GPL-3.0-or-later"
 
   livecheck do
@@ -14,16 +14,19 @@ class Samba < Formula
   end
 
   bottle do
-    sha256 arm64_big_sur: "71c3f6f68208f5453fc40aa7351688087cdad66909d010f4b6982ece23b387c2"
-    sha256 big_sur:       "e362c6e1c4aaf00cb51edb9bcf011247e922454c924d88dd560aa52bac3c4854"
-    sha256 catalina:      "142dbc9b9aac024f0b6dcc1e6030246b2fdaf60a1912487ca47ccad2dfd018ee"
-    sha256 mojave:        "cb3750eff5adb963a8ef11a2bce8926f7bec6de55fa468ff7d731898214f6b5e"
+    sha256 arm64_big_sur: "3ebb7f73273a7f80d7f3fceddcadd8d5402c2c6488e942fad911f11ad0e41c6d"
+    sha256 big_sur:       "76112aca4b4c50474f3485d5c7444de66fad7570036e557ef87114db31baca5d"
+    sha256 catalina:      "703ed0f1c7f58212ea24a6272d700d847a9d06d4e459843f487c2e559104cf02"
+    sha256 mojave:        "bffc6ff612d37b26ae0a9f1fc3b5d66c78fb6d0e4e31ee096d2d5b749fcb0dfe"
+    sha256 x86_64_linux:  "8b4c8a0cddd2c1ad635a712a5931fd6d9dfe642691cc42bbe4aa940131b447d2"
   end
 
   # configure requires python3 binary to be present, even when --disable-python is set.
   depends_on "python@3.9" => :build
   depends_on "gnutls"
 
+  uses_from_macos "bison" => :build
+  uses_from_macos "flex" => :build
   uses_from_macos "perl" => :build
 
   resource "Parse::Yapp" do
@@ -33,6 +36,7 @@ class Samba < Formula
 
   # Workaround for "charset_macosxfs.c:278:4: error: implicit declaration of function 'DEBUG' is invalid in C99"
   # Can be removed when https://bugzilla.samba.org/show_bug.cgi?id=14680 gets resolved.
+  # Merge request: https://gitlab.com/samba-team/samba/-/merge_requests/2160
   patch do
     url "https://attachments.samba.org/attachment.cgi?id=16579"
     sha256 "86fce5306349d1c8f3732ca978a31065df643c8770114dc9d068b7b4dfa7d282"
@@ -49,6 +53,7 @@ class Samba < Formula
         system "make", "install"
       end
     end
+    ENV.append "LDFLAGS", "-Wl,-rpath,#{lib}/private" if OS.linux?
     system "./configure",
            "--disable-cephfs",
            "--disable-cups",
@@ -58,26 +63,26 @@ class Samba < Formula
            "--without-acl-support",
            "--without-ad-dc",
            "--without-ads",
-           "--without-dnsupdate",
            "--without-ldap",
            "--without-libarchive",
            "--without-json",
-           "--without-ntvfs-fileserver",
            "--without-pam",
            "--without-regedit",
            "--without-syslog",
            "--without-utmp",
            "--without-winbind",
-           "--prefix=#{prefix}"
+           "--with-shared-modules=!vfs_snapper",
+           "--prefix=#{prefix}",
+           "--sysconfdir=#{etc}",
+           "--localstatedir=#{var}"
     system "make"
     system "make", "install"
-    on_macos do
+    if OS.mac?
       # macOS has its own SMB daemon as /usr/sbin/smbd, so rename our smbd to samba-dot-org-smbd to avoid conflict.
       # samba-dot-org-smbd is used by qemu.rb .
-      # Rename mdfind and profiles as well to avoid conflicting with /usr/bin/{mdfind,profiles}
-      { sbin => "smbd", bin => "mdfind", bin => "profiles" }.each do |dir, cmd|
-        mv dir/cmd, dir/"samba-dot-org-#{cmd}"
-      end
+      # Rename profiles as well to avoid conflicting with /usr/bin/profiles
+      mv sbin/"smbd", sbin/"samba-dot-org-smbd"
+      mv bin/"profiles", bin/"samba-dot-org-profiles"
     end
   end
 
@@ -86,10 +91,7 @@ class Samba < Formula
       <<~EOS
         To avoid conflicting with macOS system binaries, some files were installed with non-standard name:
         - smbd:     #{HOMEBREW_PREFIX}/sbin/samba-dot-org-smbd
-        - mdfind:   #{HOMEBREW_PREFIX}/bin/samba-dot-org-mdfind
         - profiles: #{HOMEBREW_PREFIX}/bin/samba-dot-org-profiles
-
-        On macOS, Samba should be executed as a non-root user: https://bugzilla.samba.org/show_bug.cgi?id=8773
       EOS
     end
   end
@@ -100,7 +102,7 @@ class Samba < Formula
       smbd = "#{sbin}/samba-dot-org-smbd"
     end
 
-    system smbd, "--build-options"
+    system smbd, "--build-options", "--configfile=/dev/null"
     system smbd, "--version"
 
     mkdir_p "samba/state"
@@ -135,7 +137,7 @@ class Samba < Formula
     EOS
 
     port = free_port
-    spawn smbd, "-S", "-F", "--configfile=smb.conf", "--port=#{port}", "--debuglevel=4", in: "/dev/null"
+    spawn smbd, "--debug-stdout", "-F", "--configfile=smb.conf", "--port=#{port}", "--debuglevel=4", in: "/dev/null"
 
     sleep 5
     mkdir_p "got"

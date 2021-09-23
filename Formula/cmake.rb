@@ -1,8 +1,8 @@
 class Cmake < Formula
   desc "Cross-platform make"
   homepage "https://www.cmake.org/"
-  url "https://github.com/Kitware/CMake/releases/download/v3.21.1/cmake-3.21.1.tar.gz"
-  sha256 "fac3915171d4dff25913975d712f76e69aef44bf738ba7b976793a458b4cfed4"
+  url "https://github.com/Kitware/CMake/releases/download/v3.21.3/cmake-3.21.3.tar.gz"
+  sha256 "d14d06df4265134ee42c4d50f5a60cb8b471b7b6a47da8e5d914d49dd783794f"
   license "BSD-3-Clause"
   head "https://gitlab.kitware.com/cmake/cmake.git", branch: "master"
 
@@ -14,12 +14,11 @@ class Cmake < Formula
   end
 
   bottle do
-    rebuild 1
-    sha256 cellar: :any_skip_relocation, arm64_big_sur: "d0adf9e1c020361a6f7a2e02d88b6b7d59f23c6487a54240a5ca1ac677501bb4"
-    sha256 cellar: :any_skip_relocation, big_sur:       "4ffc49c18cfc6e55a1f61fd62657de2aed1c7debec7e676e5c0160849f391287"
-    sha256 cellar: :any_skip_relocation, catalina:      "57dc1f490dd0b29f486d6cfabcd5aafdfc68dc9cc4f093bf1120761aa7d85ae7"
-    sha256 cellar: :any_skip_relocation, mojave:        "a7f593d9424c66ed3c2f6a7654c14176bc0ca913d7c676499a74835130cdc6c7"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:  "60f1c7452490ddc0eb99c0217d6ec68b1c35e5aa683dfff6aacdace0a29ff147"
+    sha256 cellar: :any_skip_relocation, arm64_big_sur: "16378902f233d8570cd0a67a1dd255acabdd29ff84d85e16cdbce68049d1e263"
+    sha256 cellar: :any_skip_relocation, big_sur:       "871469119eb1fc5b005971866925259b27960e2105935ad70e934002e429eaa9"
+    sha256 cellar: :any_skip_relocation, catalina:      "1cb1c2477f326aff08671d605564b0357a8a26257b9e94f73e44192690b5d241"
+    sha256 cellar: :any_skip_relocation, mojave:        "b1745442cd4e9e0c9614ae9dd7d587558af9ba7b438fc22e012d3c1300747b44"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "d0cd2bca284489bfcd9ddc1fb0b4323b59679ef837ee4efbf819a8a404a72609"
   end
 
   depends_on "sphinx-doc" => :build
@@ -48,7 +47,7 @@ class Cmake < Formula
       --sphinx-html
       --sphinx-man
     ]
-    on_macos do
+    if OS.mac?
       args += %w[
         --system-zlib
         --system-bzip2

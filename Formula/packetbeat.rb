@@ -2,17 +2,17 @@ class Packetbeat < Formula
   desc "Lightweight Shipper for Network Data"
   homepage "https://www.elastic.co/products/beats/packetbeat"
   url "https://github.com/elastic/beats.git",
-      tag:      "v7.14.0",
-      revision: "e127fc31fc6c00fdf8649808f9421d8f8c28b5db"
+      tag:      "v7.15.0",
+      revision: "9023152025ec6251bc6b6c38009b309157f10f17"
   license "Apache-2.0"
-  head "https://github.com/elastic/beats.git"
+  head "https://github.com/elastic/beats.git", branch: "master"
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_big_sur: "c68f6098509af8777faf45a9bf3816817af5549dc0072b21bae4742bf6487b0c"
-    sha256 cellar: :any_skip_relocation, big_sur:       "8b8da72ce166ceafd3091ec20682a886ac2eb27dfacf63a3577bf9c3d776346c"
-    sha256 cellar: :any_skip_relocation, catalina:      "f2aa4114f1857d76bf110cc8d1f2dca1d1ac3eb61ca7593e078d612eb3691313"
-    sha256 cellar: :any_skip_relocation, mojave:        "c0ad59975d41df6c764ad983741b2610acd727b7ba77327499daa20bec854ac7"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:  "4d48873c24d487788fad5273af475fa77932dc93e7289614eecde38bfa4b57dc"
+    sha256 cellar: :any_skip_relocation, arm64_big_sur: "1d887c0f7076735406de0c70b1026577ced4d73a9de8adbf147a996d48673b37"
+    sha256 cellar: :any_skip_relocation, big_sur:       "bf100c46077817995a2379e1177504f63213e100ef89660a6b39c2e00aa4ea68"
+    sha256 cellar: :any_skip_relocation, catalina:      "c159636b3ca767819fa875c4818bdcd399c716b8f34a61460adfcba1adba2021"
+    sha256 cellar: :any_skip_relocation, mojave:        "b869c5f9ef25d88c3e44c53b0e5d475a677e71a44d179bb682d63faf09836dac"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "c9ab0a640315e6ea6ea8e3bbe0db8021da00a032faea51c3af9a34447c7a7990"
   end
 
   depends_on "go" => :build
@@ -55,8 +55,11 @@ class Packetbeat < Formula
   end
 
   test do
-    eth = "en"
-    on_linux { eth = "eth" }
+    eth = if OS.mac?
+      "en"
+    else
+      "eth"
+    end
     assert_match "0: #{eth}0", shell_output("#{bin}/packetbeat devices")
     assert_match version.to_s, shell_output("#{bin}/packetbeat version")
   end

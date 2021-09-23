@@ -5,7 +5,7 @@ class Premake < Formula
   sha256 "0fa1ed02c5229d931e87995123cdb11d44fcc8bd99bba8e8bb1bbc0aaa798161"
   license "BSD-3-Clause"
   version_scheme 1
-  head "https://github.com/premake/premake-core.git"
+  head "https://github.com/premake/premake-core.git", branch: "master"
 
   bottle do
     rebuild 1
@@ -22,9 +22,10 @@ class Premake < Formula
 
   def install
     if build.head?
-      platform = "osx"
-      on_linux do
-        platform = "linux"
+      platform = if OS.mac?
+        "osx"
+      else
+        "linux"
       end
       system "make", "-f", "Bootstrap.mak", platform
       system "./bin/release/premake5", "gmake2"
@@ -32,9 +33,10 @@ class Premake < Formula
       system "make"
       bin.install "bin/release/premake5"
     else
-      platform = "macosx"
-      on_linux do
-        platform = "unix"
+      platform = if OS.mac?
+        "macosx"
+      else
+        "unix"
       end
       system "make", "-C", "build/gmake.#{platform}"
       bin.install "bin/release/premake4"

@@ -1,16 +1,16 @@
 class Ortp < Formula
   desc "Real-time transport protocol (RTP, RFC3550) library"
   homepage "https://www.linphone.org/technical-corner/ortp"
-  url "https://gitlab.linphone.org/BC/public/ortp/-/archive/5.0.5/ortp-5.0.5.tar.bz2"
-  sha256 "7c0cc54996833a1286caf4b3cd7b37758cd9a04db0ba4f34c333fa5c17678206"
+  url "https://gitlab.linphone.org/BC/public/ortp/-/archive/5.0.23/ortp-5.0.23.tar.bz2"
+  sha256 "788f928c0e7b54245c78ab745890651a752d648761b67763bf0fdd1f7425defd"
   license "GPL-3.0-or-later"
-  head "https://gitlab.linphone.org/BC/public/ortp.git"
+  head "https://gitlab.linphone.org/BC/public/ortp.git", branch: "master"
 
   bottle do
-    sha256 cellar: :any, arm64_big_sur: "179c2c0c1cbf0c05864e2f339a6e97a6980a9e7ae2115b77024595cd85839fd8"
-    sha256 cellar: :any, big_sur:       "644ddfb85a16960799ac7801d108d599b69e2dbfbf1c281772855554cbd933ae"
-    sha256 cellar: :any, catalina:      "f6d23f3450a49212c130a7e60b4fb994a492734beb75649e6569b6d466cfb851"
-    sha256 cellar: :any, mojave:        "9715d0836ca90ca99fe99b221e80d811cffe381213222864e1fbe04ac09fe4ba"
+    sha256 cellar: :any, arm64_big_sur: "3d204745ea3534e21f5171d040bd58e565b398afc7e42c01e8da27301297fcd8"
+    sha256 cellar: :any, big_sur:       "79c20b778de10705e8b1e7af10763215d45c4aef83c5bd1c27e848af887a396c"
+    sha256 cellar: :any, catalina:      "10cadafe20724532016c7efcc7cce6df6ad4703b18dd05929bdabf32ec57aa25"
+    sha256 cellar: :any, mojave:        "912186418879b39eb6cb45441c05d6f56de9e7a409f486e87c04a25a832db0a9"
   end
 
   depends_on "cmake" => :build
@@ -20,8 +20,8 @@ class Ortp < Formula
   # bctoolbox appears to follow ortp's version. This can be verified at the GitHub mirror:
   # https://github.com/BelledonneCommunications/bctoolbox
   resource "bctoolbox" do
-    url "https://gitlab.linphone.org/BC/public/bctoolbox/-/archive/5.0.5/bctoolbox-5.0.5.tar.bz2"
-    sha256 "e5fed317b6a248b7259f50e7a31a3f8a77da999c05f067640f86eada921c1213"
+    url "https://gitlab.linphone.org/BC/public/bctoolbox/-/archive/5.0.23/bctoolbox-5.0.23.tar.bz2"
+    sha256 "d3ec3c5877cded70f2a9aa08ee42e1e0ebf1ed858b4d12c46569494b34d1dd04"
   end
 
   def install

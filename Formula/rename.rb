@@ -3,7 +3,7 @@ class Rename < Formula
   homepage "http://plasmasturm.org/code/rename"
   url "https://github.com/ap/rename/archive/v1.601.tar.gz"
   sha256 "e8fd67b662b9deddfb6a19853652306f8694d7959dfac15538a9b67339c87af4"
-  head "https://github.com/ap/rename.git"
+  head "https://github.com/ap/rename.git", branch: "master"
 
   bottle do
     rebuild 1
@@ -18,7 +18,9 @@ class Rename < Formula
 
   uses_from_macos "perl"
 
-  conflicts_with "util-linux", because: "both install `rename` binaries"
+  on_linux do
+    conflicts_with "util-linux", because: "both install `rename` binaries"
+  end
 
   def install
     system "#{Formula["pod2man"].opt_bin}/pod2man", "rename", "rename.1"

@@ -1,16 +1,17 @@
 class NewrelicCli < Formula
   desc "Command-line interface for New Relic"
   homepage "https://github.com/newrelic/newrelic-cli"
-  url "https://github.com/newrelic/newrelic-cli/archive/v0.33.1.tar.gz"
-  sha256 "4c6007881b67df4b479e3e89f8e06a256951b1957cdf8f1fee24a7da8e52704f"
+  url "https://github.com/newrelic/newrelic-cli/archive/v0.36.0.tar.gz"
+  sha256 "a157c6d0a3057bba796717ed9c30fb54dc18173c1b6f3af6ab0d21eb8f52ab94"
   license "Apache-2.0"
-  head "https://github.com/newrelic/newrelic-cli.git"
+  head "https://github.com/newrelic/newrelic-cli.git", branch: "main"
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_big_sur: "f7e2904354b81fd5e4271f69ba5779652f338af76c15dae84213bb692527bdf9"
-    sha256 cellar: :any_skip_relocation, catalina:      "97aea9005ed2236c124e082e9380fc109270c45361b60e6b6141e5f1badd44a3"
-    sha256 cellar: :any_skip_relocation, mojave:        "d42c46eec15270db37afee23ecfb898cec1421e591e9e243b1a8fbbaa0f79a57"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:  "ec5f50a4a9f2ecfdf5d24c11333fbc2cd6ad0f6e5f8ebd7d1799956084c49bec"
+    sha256 cellar: :any_skip_relocation, arm64_big_sur: "74043c31a383cb5303e7a61fc30294af9950e2eba86f22e1bf6bcdeafaf8ad67"
+    sha256 cellar: :any_skip_relocation, big_sur:       "a78d7a2379ef3148a9e753a9b71cdecc91977c5029f4803b0ea1078d54d3c55f"
+    sha256 cellar: :any_skip_relocation, catalina:      "eaff727cccc604c9e8fcd1bd4adaed1a7f49de5c19f17548ef0633e49baa6826"
+    sha256 cellar: :any_skip_relocation, mojave:        "856df9a18b63dcf9577ea8778dbe24478dad9ba1cbe80754628a021ea3ae6e8d"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "a23763b045d5c24440de8b230c5d64344a384a53cda36cebdfb07db85802b567"
   end
 
   depends_on "go" => :build
@@ -18,10 +19,9 @@ class NewrelicCli < Formula
   def install
     ENV["PROJECT_VER"] = version
     system "make", "compile-only"
-    on_macos do
+    if OS.mac?
       bin.install "bin/darwin/newrelic"
-    end
-    on_linux do
+    else
       bin.install "bin/linux/newrelic"
     end
 

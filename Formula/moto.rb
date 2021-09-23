@@ -3,16 +3,16 @@ class Moto < Formula
 
   desc "Mock AWS services"
   homepage "http://getmoto.org/"
-  url "https://files.pythonhosted.org/packages/eb/7c/f40a10267acf08869dab0014a5a80deca289e30df251efdd4bf562824feb/moto-2.2.3.tar.gz"
-  sha256 "76850f44a38c0047e573ec5d4d2e5b20a77ae2de2691b2be03ed0cae17a85a0e"
+  url "https://files.pythonhosted.org/packages/80/f0/69479e76bc7aa8e357e2f8ea82496424d01a6027b7e6a5f927e8d9645f4c/moto-2.2.7.tar.gz"
+  sha256 "f5d131d0be71890809c94556930f865d25814e2d2e29d74fab749f963a11b518"
   license "Apache-2.0"
 
   bottle do
-    sha256 cellar: :any,                 arm64_big_sur: "e4c5945a52087736a140a20c553b44a4923f3bcd79c09347c8bdd6973c56358c"
-    sha256 cellar: :any,                 big_sur:       "c5a94e9850d03b637970e5985e6f84e994ca07b638e0153d32626a478c927d74"
-    sha256 cellar: :any,                 catalina:      "bfd534249fd0da11f8a5743bc2da0365af2eabd5572df8b841bd41c0c983635a"
-    sha256 cellar: :any,                 mojave:        "13ab948be723dbbe0d73f9c4a01f90a22f3ee09b6dbbc2aa4426d27864255167"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:  "b7b2b6c57a3045abcd1222712bda4c10fe5a7dc49da5e3a7ce1f3e26d459a5bf"
+    sha256 cellar: :any,                 arm64_big_sur: "20576a94bc76ecc7c2cb2b7222ecf98cef907f1127205a2982204b410e6b2a31"
+    sha256 cellar: :any,                 big_sur:       "8b4aec4acf8001e3694e1cdeffe16637a62b1d682b4470fb36d08479fb237a1c"
+    sha256 cellar: :any,                 catalina:      "e28a15071a4d1616b326c79ccf35f6609fae955054c4ebfe2e8742d2de47b273"
+    sha256 cellar: :any,                 mojave:        "dde69d6bdde34f25d8c49b31403399eae0f8656c9f1e9b858313b49d1ba90e26"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "42074518954b5885cb003f4bb2aa60cc638207ad42f2ff458ee749c4c6e0bb3c"
   end
 
   depends_on "rust" => :build # for cryptography
@@ -34,13 +34,13 @@ class Moto < Formula
   end
 
   resource "boto3" do
-    url "https://files.pythonhosted.org/packages/72/ac/4f109cc03f333e1dc9cc489b54b3261eb1213557b48a42afe69321706517/boto3-1.18.22.tar.gz"
-    sha256 "7405ae77ce4f2151fae1b542183f9c0f7ffb57c288b1f152819cfcb88e9cf297"
+    url "https://files.pythonhosted.org/packages/2d/49/49095603932627231e5514c944b4d6163518dbf40e7be32d57f882d2fba7/boto3-1.18.42.tar.gz"
+    sha256 "a9232185d8e7e2fd2b166c0ebee5d7b1f787fdb3093f33bbf5aa932c08f0ccac"
   end
 
   resource "botocore" do
-    url "https://files.pythonhosted.org/packages/78/cc/0b4e959ca99c24093391d8f5a62761f23528734508623bd6845adf8e1a64/botocore-1.21.22.tar.gz"
-    sha256 "9c133caab58b04b4a9ab3f6523cc61cf815c1a5fde7b5ee279eefa48dc3a01d1"
+    url "https://files.pythonhosted.org/packages/23/3a/9b1df4515c6c47ceb99a863d33876ef53051f9e1d11fcfda2751ebee665c/botocore-1.21.42.tar.gz"
+    sha256 "0952d1200968365b440045efe8e45bbae38cf603fee12bcfc3d7b5f963cbfa18"
   end
 
   resource "certifi" do
@@ -54,13 +54,13 @@ class Moto < Formula
   end
 
   resource "cfn-lint" do
-    url "https://files.pythonhosted.org/packages/7a/97/501de7b17de2f2f95d6fd0c21bda61074e8843bcc83b515b604ee8b5cf70/cfn-lint-0.53.0.tar.gz"
-    sha256 "b7f5964842f7a44c5af9c61d64308dc4bcb718cf5de5428781d5564e9663463d"
+    url "https://files.pythonhosted.org/packages/bc/f6/62a7768f90f4b4e113b6decdd3136b33820f279a79f4937490be0b266eb6/cfn-lint-0.54.1.tar.gz"
+    sha256 "cab1d292668bcb1dd3f7e9b87965d4059d32a038dc5833b823cf6e25820b8181"
   end
 
   resource "charset-normalizer" do
-    url "https://files.pythonhosted.org/packages/e7/4e/2af0238001648ded297fb54ceb425ca26faa15b341b4fac5371d3938666e/charset-normalizer-2.0.4.tar.gz"
-    sha256 "f23667ebe1084be45f6ae0538e4a5a865206544097e4e8bbcacf42cd02a348f3"
+    url "https://files.pythonhosted.org/packages/68/32/95ddb68b9abeb89efd461852cdff5791d42fc5e4c528536f541091ffded3/charset-normalizer-2.0.5.tar.gz"
+    sha256 "7098e7e862f6370a2a8d1a6398cd359815c45d12626267652c3f13dec58e2367"
   end
 
   resource "click" do
@@ -69,13 +69,13 @@ class Moto < Formula
   end
 
   resource "cryptography" do
-    url "https://files.pythonhosted.org/packages/9b/77/461087a514d2e8ece1c975d8216bc03f7048e6090c5166bc34115afdaa53/cryptography-3.4.7.tar.gz"
-    sha256 "3d10de8116d25649631977cb37da6cbdd2d6fa0e0281d014a5b7d337255ca713"
+    url "https://files.pythonhosted.org/packages/cc/98/8a258ab4787e6f835d350639792527d2eb7946ff9fc0caca9c3f4cf5dcfe/cryptography-3.4.8.tar.gz"
+    sha256 "94cc5ed4ceaefcbe5bf38c8fba6a21fc1d365bb8fb826ea1688e3370b2e24a1c"
   end
 
   resource "docker" do
-    url "https://files.pythonhosted.org/packages/fa/a2/e46d7c1b51394a09271a3b07c3a68deb3a669429beafd444d9553ed52868/docker-5.0.0.tar.gz"
-    sha256 "3e8bc47534e0ca9331d72c32f2881bb13b93ded0bcdeab3c833fb7cf61c0a9a5"
+    url "https://files.pythonhosted.org/packages/b9/e4/b902199a501528bae3de060bb3b2e96e3362ec0311dd3e7e38e5e2d66080/docker-5.0.2.tar.gz"
+    sha256 "21ec4998e90dff7a7aaaa098ca8d839c7de412b89e6f6c30908372d58fecf663"
   end
 
   resource "ecdsa" do
@@ -101,11 +101,6 @@ class Moto < Formula
   resource "idna" do
     url "https://files.pythonhosted.org/packages/ea/b7/e0e3c1c467636186c39925827be42f16fee389dc404ac29e930e9136be70/idna-2.10.tar.gz"
     sha256 "b307872f855b18632ce0c21c5e45be78c0ea7ae4c15c828c20788b26921eb3f6"
-  end
-
-  resource "importlib-metadata" do
-    url "https://files.pythonhosted.org/packages/aa/b9/514816064db3028d7370f2ce02e8e8f5d9bc68f6f9a41b04d19176aba70e/importlib_metadata-4.6.4.tar.gz"
-    sha256 "7b30a78db2922d78a6f47fb30683156a14f3c6aa5cc23f77cc8967e9ab2d002f"
   end
 
   resource "itsdangerous" do
@@ -154,13 +149,13 @@ class Moto < Formula
   end
 
   resource "more-itertools" do
-    url "https://files.pythonhosted.org/packages/03/0a/4769cc0557fbe690f86bc4c183faa116f1050e5c9296f1b7b5806f063cdb/more-itertools-8.8.0.tar.gz"
-    sha256 "83f0308e05477c68f56ea3a888172c78ed5d5b3c282addb67508e7ba6c8f813a"
+    url "https://files.pythonhosted.org/packages/e7/79/46de03872e1bb6e02b087d3e42d9077c344fc5aa83c14c641628e809c629/more-itertools-8.9.0.tar.gz"
+    sha256 "8c746e0d09871661520da4f1241ba6b908dc903839733c8203b552cffaf173bd"
   end
 
   resource "networkx" do
-    url "https://files.pythonhosted.org/packages/4b/3b/4378599026b81d1987a6e0d6d3d677e8f26308a039491a6b8a1914e58a4c/networkx-2.6.2.tar.gz"
-    sha256 "2306f1950ce772c5a59a57f5486d59bb9cab98497c45fc49cbc45ac0dec119bb"
+    url "https://files.pythonhosted.org/packages/97/ae/7497bc5e1c84af95e585e3f98585c9f06c627fac6340984c4243053e8f44/networkx-2.6.3.tar.gz"
+    sha256 "c0946ed31d71f1b732b5aaa6da5a0388a345019af232ce2f49c766e2d6795c51"
   end
 
   resource "pyasn1" do
@@ -204,8 +199,8 @@ class Moto < Formula
   end
 
   resource "responses" do
-    url "https://files.pythonhosted.org/packages/35/fc/d58c1464a38b9455a4bedb36d5e345b11b5158c3af10efac7e6df4bf0551/responses-0.13.4.tar.gz"
-    sha256 "9476775d856d3c24ae660bbebe29fb6d789d4ad16acd723efbfb6ee20990b899"
+    url "https://files.pythonhosted.org/packages/a5/f7/3367c580f7b5c3b5395287b27a2f9fa0a37f3dc24c8b0571d32394244cac/responses-0.14.0.tar.gz"
+    sha256 "93f774a762ee0e27c0d9d7e06227aeda9ff9f5f69392f72bb6c6b73f8763563e"
   end
 
   resource "rsa" do
@@ -253,45 +248,16 @@ class Moto < Formula
     sha256 "50d8c638ed7ecb88d90561beedbf720c9b4e851a9fa6c47ebd64e99d166d8a21"
   end
 
-  resource "zipp" do
-    url "https://files.pythonhosted.org/packages/3a/9f/1d4b62cbe8d222539a84089eeab603d8e45ee1f897803a0ae0860400d6e7/zipp-3.5.0.tar.gz"
-    sha256 "f5812b1e007e48cff63449a5e9f4e7ebea716b4111f9c4f9a645f91d579bf0c4"
-  end
-
   def install
     virtualenv_install_with_resources
   end
 
-  plist_options manual: "moto_server"
-
-  def plist
-    <<~EOS
-      <?xml version="1.0" encoding="UTF-8"?>
-      <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
-      <plist version="1.0">
-        <dict>
-          <key>KeepAlive</key>
-          <dict>
-            <key>SuccessfulExit</key>
-            <false/>
-          </dict>
-          <key>Label</key>
-          <string>#{plist_name}</string>
-          <key>ProgramArguments</key>
-          <array>
-            <string>#{opt_bin}/moto_server</string>
-          </array>
-          <key>RunAtLoad</key>
-          <true/>
-          <key>WorkingDirectory</key>
-          <string>#{var}</string>
-          <key>StandardErrorPath</key>
-          <string>#{var}/log/moto.log</string>
-          <key>StandardOutPath</key>
-          <string>#{var}/log/moto.log</string>
-        </dict>
-      </plist>
-    EOS
+  service do
+    run [opt_bin/"moto_server"]
+    keep_alive true
+    working_dir var
+    log_path var/"log/moto.log"
+    error_log_path var/"log/moto.log"
   end
 
   test do

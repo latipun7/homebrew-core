@@ -1,10 +1,9 @@
 class Imagemagick < Formula
   desc "Tools and libraries to manipulate images in many formats"
-  homepage "https://www.imagemagick.org/"
-  url "https://www.imagemagick.org/download/releases/ImageMagick-7.1.0-4.tar.xz"
-  sha256 "1a54bd46947f16fb29cf083be3614a14135f2fe9d1aa20665a85a8940bf6dc65"
+  homepage "https://imagemagick.org/index.php"
+  url "https://www.imagemagick.org/download/releases/ImageMagick-7.1.0-8.tar.xz"
+  sha256 "393280a93396cbb10f4a88e4dafaa03b0bc8031a86d92fb80948f814fc5d0c01"
   license "ImageMagick"
-  revision 2
   head "https://github.com/ImageMagick/ImageMagick.git", branch: "main"
 
   livecheck do
@@ -13,11 +12,11 @@ class Imagemagick < Formula
   end
 
   bottle do
-    sha256 arm64_big_sur: "4f3cb752765fb60419411099a329bf44256e532c0c04cf09ba85df953eafb6f2"
-    sha256 big_sur:       "0e76a860969c8ed7b207908067ce74a26cbc77f57661c2e133ac40bafbdaf25f"
-    sha256 catalina:      "0928952097855efd8278261b21690a3138f6850d6177fc0f452ebf2d7635f987"
-    sha256 mojave:        "00ca7b5f7268abd949a8505d9942575775969a2b4f8cce986b8e936edf4161cd"
-    sha256 x86_64_linux:  "b6454596dd36ba685eb1aac39bfb110bec272dfd0e20c37059772c0ae3fc01cd"
+    sha256 arm64_big_sur: "2793c19efd7621da0bf55f09c78bf832aaf47ba56363df190fff63c8608f2165"
+    sha256 big_sur:       "1f1259530e487bb2c82376ef90ae6524a63ff4abe73434ba43f81bd701c1e31c"
+    sha256 catalina:      "d26b278da457c41e7839853412e93e1bc16930cc411553b7a120a62921e4144c"
+    sha256 mojave:        "acbb14d98c907ccf7c73db12b893e01e8c9d776f2bcf5af192c562491e65e3bf"
+    sha256 x86_64_linux:  "ee3c0d961f4957a9d5633b26a0a0a14ced9a8e74cc03486dd0d5cbc46db721d8"
   end
 
   depends_on "pkg-config" => :build
@@ -77,9 +76,7 @@ class Imagemagick < Formula
       "LDFLAGS=-lomp -lz",
     ]
 
-    on_macos do
-      args << "--without-x"
-    end
+    args << "--without-x" if OS.mac?
 
     # versioned stuff in main tree is pointless for us
     inreplace "configure", "${PACKAGE_NAME}-${PACKAGE_BASE_VERSION}", "${PACKAGE_NAME}"

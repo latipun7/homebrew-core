@@ -2,8 +2,8 @@ class ArchiSteamFarm < Formula
   desc "Application for idling Steam cards from multiple accounts simultaneously"
   homepage "https://github.com/JustArchiNET/ArchiSteamFarm"
   url "https://github.com/JustArchiNET/ArchiSteamFarm.git",
-    tag:      "5.1.2.4",
-    revision: "7ff747fb6ed26229101909f2b0abb0ca03b98988"
+      tag:      "5.1.3.9",
+      revision: "0a3ae316daf0667a5492110da85da720eb768a90"
   license "Apache-2.0"
   head "https://github.com/JustArchiNET/ArchiSteamFarm.git", branch: "main"
 
@@ -13,7 +13,7 @@ class ArchiSteamFarm < Formula
   end
 
   bottle do
-    sha256 cellar: :any_skip_relocation, all: "4b25ba81291d9798afa9f62ca63f535abcbf4318db19868d29610c21ed5b51f4"
+    sha256 cellar: :any_skip_relocation, all: "f610d90cc3f7b0a77de8c664f30e217be0b0863250a0ae8683127eaf06aaef9c"
   end
 
   depends_on arch: :x86_64 # dotnet does not support ARM

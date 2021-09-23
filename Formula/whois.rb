@@ -4,7 +4,7 @@ class Whois < Formula
   url "https://deb.debian.org/debian/pool/main/w/whois/whois_5.5.10.tar.xz"
   sha256 "2391037b079695d0e9fd3c85ab021809a539cf093d25b6c51ca65019a54158dd"
   license "GPL-2.0-or-later"
-  head "https://github.com/rfc1036/whois.git"
+  head "https://github.com/rfc1036/whois.git", branch: "next"
 
   bottle do
     sha256 cellar: :any,                 arm64_big_sur: "970ef127f0ed9b5585811ae9073dd3afbcd6127338f8c3b89b081195d7ec4b13"
@@ -20,14 +20,12 @@ class Whois < Formula
   depends_on "libidn2"
 
   def install
-    on_macos do
-      ENV.append "LDFLAGS", "-L/usr/lib -liconv"
-    end
+    ENV.append "LDFLAGS", "-L/usr/lib -liconv" if OS.mac?
 
-    have_iconv = "HAVE_ICONV=1"
-
-    on_linux do
-      have_iconv = "HAVE_ICONV=0"
+    have_iconv = if OS.mac?
+      "HAVE_ICONV=1"
+    else
+      "HAVE_ICONV=0"
     end
 
     system "make", "whois", have_iconv

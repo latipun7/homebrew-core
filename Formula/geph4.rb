@@ -1,24 +1,24 @@
 class Geph4 < Formula
   desc "Modular Internet censorship circumvention system to deal with national filtering"
   homepage "https://geph.io/"
-  url "https://github.com/geph-official/geph4/archive/v4.4.7.tar.gz"
-  sha256 "e585cb9189194c4d30890af7685d233b0323963d8d5c4c6a5503a673c89aad58"
+  url "https://github.com/geph-official/geph4/archive/v4.4.17.tar.gz"
+  sha256 "8f25c89ff96c7bacd93261f1f880f641a041af8c583edbec9d56f2cc5990b22f"
   license "GPL-3.0-only"
+  head "https://github.com/geph-official/geph4.git", branch: "master"
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_big_sur: "b23439012e62c7726234caccd151872ea7869b4a1c2176738cfeafb148484a0d"
-    sha256 cellar: :any_skip_relocation, big_sur:       "232e24d70b4e619d92a3711b0d8722adefe92fc898f47c1db02d76607553b365"
-    sha256 cellar: :any_skip_relocation, catalina:      "0c6b525e75b72d9721f5830eea0283097222f54896cfe8a490020826afcf6e66"
-    sha256 cellar: :any_skip_relocation, mojave:        "554f9cb02bdb95461ba13e641beaa18253cd79fdf1720b993ae9315743e7197d"
+    sha256 cellar: :any_skip_relocation, arm64_big_sur: "0036366831b1bef03d3db6bb5d9903e5b83159a42dd586a1f56e7b661ffb4d06"
+    sha256 cellar: :any_skip_relocation, big_sur:       "defea698cf2fc65da4c2c99d6a55087e3f9ca5bfb1b6f2fc22d17d2e7f6a3d36"
+    sha256 cellar: :any_skip_relocation, catalina:      "08758f514b8f22ebae583102bc137af5453e99ca3e2d236f72c2ab58f094868a"
+    sha256 cellar: :any_skip_relocation, mojave:        "c27c3e1190eaf89bbd1112fc0c0cdb863ca99a9ac902dbb5759e216300ca06fb"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "0b1d097fb361fbc9700a78e23749a86ba089ea3f61ba3c3a354bf7ea9d5c64d7"
   end
 
   depends_on "rust" => :build
 
   def install
-    File.delete("Cross.toml")
-    remove_dir(".cargo")
-    Dir.chdir "geph4-client"
-    system "cargo", "install", "--bin", "geph4-client", *std_cargo_args
+    (buildpath/".cargo").rmtree
+    system "cargo", "install", *std_cargo_args
   end
 
   test do

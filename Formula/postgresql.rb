@@ -4,7 +4,7 @@ class Postgresql < Formula
   url "https://ftp.postgresql.org/pub/source/v13.4/postgresql-13.4.tar.bz2"
   sha256 "ea93e10390245f1ce461a54eb5f99a48d8cabd3a08ce4d652ec2169a357bc0cd"
   license "PostgreSQL"
-  head "https://github.com/postgres/postgres.git"
+  head "https://github.com/postgres/postgres.git", branch: "master"
 
   livecheck do
     url "https://ftp.postgresql.org/pub/source/"
@@ -62,7 +62,7 @@ class Postgresql < Formula
       --with-perl
       --with-uuid=e2fs
     ]
-    on_macos do
+    if OS.mac?
       args += %w[
         --with-bonjour
         --with-tcl
@@ -83,7 +83,7 @@ class Postgresql < Formula
                                     "includedir_server=#{include}/postgresql/server",
                                     "includedir_internal=#{include}/postgresql/internal"
 
-    on_linux do
+    if OS.linux?
       inreplace lib/"postgresql/pgxs/src/Makefile.global",
                 "LD = #{HOMEBREW_PREFIX}/Homebrew/Library/Homebrew/shims/linux/super/ld",
                 "LD = #{HOMEBREW_PREFIX}/bin/ld"

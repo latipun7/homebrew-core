@@ -3,14 +3,14 @@ require "language/node"
 class Truffle < Formula
   desc "Development environment, testing framework and asset pipeline for Ethereum"
   homepage "https://trufflesuite.com"
-  url "https://registry.npmjs.org/truffle/-/truffle-5.4.6.tgz"
-  sha256 "cc14176a572d7dd90c17545c70201e37db3d259b9cb0df7734557acad3c0c397"
+  url "https://registry.npmjs.org/truffle/-/truffle-5.4.11.tgz"
+  sha256 "5906eee48d36e6d853db9378ef13719e55d0ac2884c99139546985ec4c9874ba"
   license "MIT"
 
   bottle do
-    sha256 big_sur:  "e26e4a5e80777c71b06b126e090ee867b7c1f54552023335afe0592293fd9990"
-    sha256 catalina: "0c8b46a8c4cd4dde2b54a6e68772c96ac65f86e079c2d7d33a2b4784f6d3756b"
-    sha256 mojave:   "b3eec177b246fd768dd9d797cdf5a0ba3072dbd3f4f0183fe6f25fec7d1c7c01"
+    sha256 big_sur:  "4ebf221683fa0b847990c03554b649f91c0951bac775a3c1e3cb4913ca735c5f"
+    sha256 catalina: "6e3b7e053adb0997d8810c376291eb76d6e9bfcc6f671856f68e9de9384d5899"
+    sha256 mojave:   "0d98f91261c6ccf68095237c1af41bc8a0693f6c2d3703f6c026a4c9defd2695"
   end
 
   # the formula does not build any binaries for arm64
